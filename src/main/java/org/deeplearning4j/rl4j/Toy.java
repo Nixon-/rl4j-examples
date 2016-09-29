@@ -11,6 +11,7 @@ import org.deeplearning4j.rl4j.learning.sync.qlearning.QLearning;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteDense;
 import org.deeplearning4j.rl4j.mdp.MDP;
 import org.deeplearning4j.rl4j.mdp.toy.HardDeteministicToy;
+import org.deeplearning4j.rl4j.mdp.toy.HardToyState;
 import org.deeplearning4j.rl4j.mdp.toy.SimpleToy;
 import org.deeplearning4j.rl4j.mdp.toy.SimpleToyState;
 import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdDense;
@@ -39,7 +40,7 @@ public class Toy {
                     0.05,  //reward scaling
                     0.99,  //gamma
                     10.0,  //td-error clipping
-                    0.1f,  //min epsilon
+                    0.1,  //min epsilon
                     2000,  //num step for eps greedy anneal
                     true   //double DQN
             );
@@ -85,7 +86,8 @@ public class Toy {
         SimpleToy mdp = new SimpleToy(20);
 
         //define the training method
-        Learning<SimpleToyState, Integer, DiscreteSpace, IDQN> dql = new QLearningDiscreteDense<SimpleToyState>(mdp, TOY_NET, TOY_QL, manager);
+        Learning<SimpleToyState, Integer, DiscreteSpace, IDQN> dql =
+                new QLearningDiscreteDense<>(mdp, TOY_NET, TOY_QL, manager);
 
         //enable some logging for debug purposes on toy mdp
         mdp.setFetchable(dql);
@@ -104,18 +106,17 @@ public class Toy {
         DataManager manager = new DataManager();
 
         //define the mdp from toy (toy length)
-        MDP mdp = new HardDeteministicToy();
+        MDP<HardToyState, Integer, DiscreteSpace> mdp = new HardDeteministicToy();
 
         //define the training
-        ILearning<SimpleToyState, Integer, DiscreteSpace> dql = new QLearningDiscreteDense(mdp, TOY_NET, TOY_QL, manager);
+        ILearning<HardToyState, Integer, DiscreteSpace> dql =
+                new QLearningDiscreteDense<>(mdp, TOY_NET, TOY_QL, manager);
 
         //start the training
         dql.train();
 
         //useless on toy but good practice!
         mdp.close();
-
-
     }
 
 
@@ -128,7 +129,8 @@ public class Toy {
         SimpleToy mdp = new SimpleToy(20);
 
         //define the training
-        AsyncNStepQLearningDiscreteDense dql = new AsyncNStepQLearningDiscreteDense<SimpleToyState>(mdp, TOY_NET, TOY_ASYNC_QL, manager);
+        AsyncNStepQLearningDiscreteDense<SimpleToyState> dql =
+                new AsyncNStepQLearningDiscreteDense<>(mdp, TOY_NET, TOY_ASYNC_QL, manager);
 
         //enable some logging for debug purposes on toy mdp
         mdp.setFetchable(dql);

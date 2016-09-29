@@ -24,9 +24,6 @@ import org.deeplearning4j.rl4j.util.DataManager;
  */
 public class Doom {
 
-
-
-
     public static QLearning.QLConfiguration DOOM_QL =
             new QLearning.QLConfiguration(
                     123,      //Random seed
@@ -78,7 +75,8 @@ public class Doom {
         VizDoom mdp = new DeadlyCorridor(false);
 
         //setup the training
-        QLearningDiscreteConv<VizDoom.GameScreen> dql = new QLearningDiscreteConv(mdp, DOOM_NET, DOOM_HP, DOOM_QL, manager);
+        QLearningDiscreteConv<VizDoom.GameScreen> dql =
+                new QLearningDiscreteConv<>(mdp, DOOM_NET, DOOM_HP, DOOM_QL, manager);
 
         //start the training
         dql.train();

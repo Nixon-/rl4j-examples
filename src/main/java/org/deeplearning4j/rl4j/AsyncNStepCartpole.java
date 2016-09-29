@@ -1,12 +1,11 @@
 package org.deeplearning4j.rl4j;
 
-import org.deeplearning4j.rl4j.gym.space.Box;
-import org.deeplearning4j.rl4j.learning.async.AsyncLearning;
 import org.deeplearning4j.rl4j.learning.async.nstep.discrete.AsyncNStepQLearningDiscrete;
 import org.deeplearning4j.rl4j.learning.async.nstep.discrete.AsyncNStepQLearningDiscreteDense;
-
 import org.deeplearning4j.rl4j.mdp.gym.GymEnv;
 import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdDense;
+import org.deeplearning4j.rl4j.space.Box;
+import org.deeplearning4j.rl4j.space.DiscreteSpace;
 import org.deeplearning4j.rl4j.util.DataManager;
 
 /**
@@ -53,19 +52,17 @@ public class AsyncNStepCartpole {
         //record the training data in rl4j-data in a new folder
         DataManager manager = new DataManager(true);
 
-        //define the mdp from gym (name, render)
-        GymEnv mdp = new GymEnv("CartPole-v0", false, false);
+        GymEnv<Box, Integer, DiscreteSpace> mdp = new GymEnv<>("CartPole-v0", false, false);
 
         //define the training
-        AsyncNStepQLearningDiscreteDense<Box> dql = new AsyncNStepQLearningDiscreteDense<Box>(mdp, CARTPOLE_NET_NSTEP, CARTPOLE_NSTEP, manager);
+        AsyncNStepQLearningDiscreteDense<Box> dql =
+                new AsyncNStepQLearningDiscreteDense<>(mdp, CARTPOLE_NET_NSTEP, CARTPOLE_NSTEP, manager);
 
         //train
         dql.train();
 
         //close the mdp (close connection)
-        mdp.close();
-
-
+        // client.close();
     }
 
 

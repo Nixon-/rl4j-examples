@@ -1,14 +1,12 @@
 package org.deeplearning4j.rl4j;
 
-import org.deeplearning4j.rl4j.gym.space.Box;
 import org.deeplearning4j.rl4j.learning.async.a3c.discrete.A3CDiscrete;
 import org.deeplearning4j.rl4j.learning.async.a3c.discrete.A3CDiscreteDense;
 import org.deeplearning4j.rl4j.mdp.gym.GymEnv;
-import org.deeplearning4j.rl4j.network.ac.ActorCriticFactorySeparate;
 import org.deeplearning4j.rl4j.network.ac.ActorCriticFactorySeparateStdDense;
+import org.deeplearning4j.rl4j.space.Box;
+import org.deeplearning4j.rl4j.space.DiscreteSpace;
 import org.deeplearning4j.rl4j.util.DataManager;
-
-import static org.deeplearning4j.rl4j.Cartpole.CARTPOLE_NET;
 
 /**
  * @author rubenfiszel (ruben.fiszel@epfl.ch) on 8/18/16.
@@ -33,7 +31,8 @@ public class A3CCartpole {
 
 
 
-    private static final ActorCriticFactorySeparateStdDense.Configuration CARTPOLE_NET_A3C = new ActorCriticFactorySeparateStdDense.Configuration(
+    private static final ActorCriticFactorySeparateStdDense.Configuration CARTPOLE_NET_A3C =
+            new ActorCriticFactorySeparateStdDense.Configuration(
             3,                      //number of layers
             16,                     //number of hidden nodes
             0.001,                 //learning rate
@@ -52,10 +51,10 @@ public class A3CCartpole {
         DataManager manager = new DataManager(true);
 
         //define the mdp from gym (name, render)
-        GymEnv mdp = new GymEnv("CartPole-v0", false, false);
+        GymEnv<Box, Integer, DiscreteSpace> mdp = new GymEnv<>("CartPole-v0", false, false);
 
         //define the training
-        A3CDiscreteDense<Box> dql = new A3CDiscreteDense<Box>(mdp, CARTPOLE_NET_A3C, CARTPOLE_A3C, manager);
+        A3CDiscreteDense<Box> dql = new A3CDiscreteDense<>(mdp, CARTPOLE_NET_A3C, CARTPOLE_A3C, manager);
 
         //start the training
         dql.train();
