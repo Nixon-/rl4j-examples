@@ -1,7 +1,7 @@
 package org.deeplearning4j.rl4j;
 
 import org.deeplearning4j.rl4j.learning.HistoryProcessor;
-import org.deeplearning4j.rl4j.learning.sync.qlearning.QLearning;
+import org.deeplearning4j.rl4j.learning.sync.qlearning.QLConfiguration;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteConv;
 import org.deeplearning4j.rl4j.mdp.vizdoom.DeadlyCorridor;
 import org.deeplearning4j.rl4j.mdp.vizdoom.VizDoom;
@@ -24,8 +24,8 @@ import org.deeplearning4j.rl4j.util.DataManager;
  */
 public class Doom {
 
-    public static QLearning.QLConfiguration DOOM_QL =
-            new QLearning.QLConfiguration(
+    private final static QLConfiguration DOOM_QL =
+            new QLConfiguration(
                     123,      //Random seed
                     10000,    //Max step By epoch
                     8000000,  //Max step
@@ -44,13 +44,13 @@ public class Doom {
 
 
 
-    public static DQNFactoryStdConv.Configuration DOOM_NET =
+    private final static DQNFactoryStdConv.Configuration DOOM_NET =
             new DQNFactoryStdConv.Configuration(
                     0.00025, //learning rate
                     0.000    //l2 regularization
             );
 
-    public static HistoryProcessor.Configuration DOOM_HP =
+    private final static HistoryProcessor.Configuration DOOM_HP =
             new HistoryProcessor.Configuration(
                     4,       //History length
                     84,      //resize width
@@ -66,7 +66,7 @@ public class Doom {
         doomBasicQL();
     }
 
-    public static void doomBasicQL() {
+    private static void doomBasicQL() {
 
         //record the training data in rl4j-data in a new folder
         DataManager manager = new DataManager(true);

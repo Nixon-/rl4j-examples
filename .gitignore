@@ -3,3 +3,4 @@ vizdoom/
 *.ini
 .idea/
 *.log
+**/*.iml

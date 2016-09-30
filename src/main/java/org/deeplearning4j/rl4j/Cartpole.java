@@ -1,7 +1,7 @@
 package org.deeplearning4j.rl4j;
 
 
-import org.deeplearning4j.rl4j.learning.sync.qlearning.QLearning;
+import org.deeplearning4j.rl4j.learning.sync.qlearning.QLConfiguration;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteDense;
 import org.deeplearning4j.rl4j.mdp.gym.GymEnv;
 import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdDense;
@@ -12,7 +12,6 @@ import org.deeplearning4j.rl4j.util.DataManager;
 
 import java.util.logging.Logger;
 
-
 /**
  * @author rubenfiszel (ruben.fiszel@epfl.ch) on 8/11/16.
  *
@@ -21,8 +20,8 @@ import java.util.logging.Logger;
  * **/
 public class Cartpole
 {
-    private static QLearning.QLConfiguration CARTPOLE_QL =
-            new QLearning.QLConfiguration(
+    private final static QLConfiguration CARTPOLE_QL =
+            new QLConfiguration(
                     123,    //Random seed
                     200,    //Max step By epoch
                     150000, //Max step
@@ -38,7 +37,7 @@ public class Cartpole
                     true    //double DQN
             );
 
-    private static DQNFactoryStdDense.Configuration CARTPOLE_NET =
+    private final static DQNFactoryStdDense.Configuration CARTPOLE_NET =
             new DQNFactoryStdDense.Configuration(
                     3,         //number of layers
                     16,        //number of hidden nodes

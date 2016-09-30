@@ -4,10 +4,10 @@ package org.deeplearning4j.rl4j;
 import org.deeplearning4j.rl4j.learning.ILearning;
 import org.deeplearning4j.rl4j.learning.Learning;
 
-import org.deeplearning4j.rl4j.learning.async.nstep.discrete.AsyncNStepQLearningDiscrete;
+import org.deeplearning4j.rl4j.learning.async.nstep.discrete.AsyncNStepQLConfiguration;
 import org.deeplearning4j.rl4j.learning.async.nstep.discrete.AsyncNStepQLearningDiscreteDense;
 
-import org.deeplearning4j.rl4j.learning.sync.qlearning.QLearning;
+import org.deeplearning4j.rl4j.learning.sync.qlearning.QLConfiguration;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteDense;
 import org.deeplearning4j.rl4j.mdp.MDP;
 import org.deeplearning4j.rl4j.mdp.toy.HardDeteministicToy;
@@ -27,9 +27,8 @@ import org.deeplearning4j.rl4j.util.DataManager;
  */
 public class Toy {
 
-
-    public static QLearning.QLConfiguration TOY_QL =
-            new QLearning.QLConfiguration(
+    private final static QLConfiguration TOY_QL =
+            new QLConfiguration(
                     123,   //Random seed
                     100000,//Max step By epoch
                     80000, //Max step
@@ -46,8 +45,8 @@ public class Toy {
             );
 
 
-    public static AsyncNStepQLearningDiscrete.AsyncNStepQLConfiguration TOY_ASYNC_QL =
-            new AsyncNStepQLearningDiscrete.AsyncNStepQLConfiguration(
+    private final static AsyncNStepQLConfiguration TOY_ASYNC_QL =
+            new AsyncNStepQLConfiguration(
                     123,        //Random seed
                     100000,     //Max step By epoch
                     80000,      //Max step
@@ -62,7 +61,7 @@ public class Toy {
                     2000        //num step for eps greedy anneal
             );
 
-    public static DQNFactoryStdDense.Configuration TOY_NET =
+    private final static DQNFactoryStdDense.Configuration TOY_NET =
             new DQNFactoryStdDense.Configuration(
                     3,        //number of layers
                     16,       //number of hidden nodes
@@ -77,7 +76,7 @@ public class Toy {
 
     }
 
-    public static void simpleToy() {
+    private static void simpleToy() {
 
         //record the training data in rl4j-data in a new folder
         DataManager manager = new DataManager();
@@ -118,7 +117,6 @@ public class Toy {
         //useless on toy but good practice!
         mdp.close();
     }
-
 
     public static void toyAsyncNstep() {
 

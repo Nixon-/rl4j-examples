@@ -1,6 +1,6 @@
 package org.deeplearning4j.rl4j;
 
-import org.deeplearning4j.rl4j.learning.async.a3c.discrete.A3CDiscrete;
+import org.deeplearning4j.rl4j.learning.async.a3c.discrete.A3CConfiguration;
 import org.deeplearning4j.rl4j.learning.async.a3c.discrete.A3CDiscreteDense;
 import org.deeplearning4j.rl4j.mdp.gym.GymEnv;
 import org.deeplearning4j.rl4j.network.ac.ActorCriticFactorySeparateStdDense;
@@ -16,8 +16,8 @@ import org.deeplearning4j.rl4j.util.DataManager;
  */
 public class A3CCartpole {
 
-    private static A3CDiscrete.A3CConfiguration CARTPOLE_A3C =
-            new A3CDiscrete.A3CConfiguration(
+    private static A3CConfiguration CARTPOLE_A3C =
+            new A3CConfiguration(
                     123,            //Random seed
                     200,            //Max step By epoch
                     500000,         //Max step
@@ -45,7 +45,7 @@ public class A3CCartpole {
         A3CcartPole();
     }
 
-    public static void A3CcartPole() {
+    private static void A3CcartPole() {
 
         //record the training data in rl4j-data in a new folder
         DataManager manager = new DataManager(true);

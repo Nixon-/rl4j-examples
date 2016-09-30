@@ -1,6 +1,6 @@
 package org.deeplearning4j.rl4j;
 
-import org.deeplearning4j.rl4j.learning.async.nstep.discrete.AsyncNStepQLearningDiscrete;
+import org.deeplearning4j.rl4j.learning.async.nstep.discrete.AsyncNStepQLConfiguration;
 import org.deeplearning4j.rl4j.learning.async.nstep.discrete.AsyncNStepQLearningDiscreteDense;
 import org.deeplearning4j.rl4j.mdp.gym.GymEnv;
 import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdDense;
@@ -15,9 +15,8 @@ import org.deeplearning4j.rl4j.util.DataManager;
  */
 public class AsyncNStepCartpole {
 
-
-    public static AsyncNStepQLearningDiscrete.AsyncNStepQLConfiguration CARTPOLE_NSTEP =
-            new AsyncNStepQLearningDiscrete.AsyncNStepQLConfiguration(
+    private final static AsyncNStepQLConfiguration CARTPOLE_NSTEP =
+            new AsyncNStepQLConfiguration(
                     123,     //Random seed
                     200,     //Max step By epoch
                     300000,  //Max step
@@ -32,7 +31,7 @@ public class AsyncNStepCartpole {
                     9000     //num step for eps greedy anneal
             );
 
-    public static DQNFactoryStdDense.Configuration CARTPOLE_NET_NSTEP =
+    private final static DQNFactoryStdDense.Configuration CARTPOLE_NET_NSTEP =
             new DQNFactoryStdDense.Configuration(
                     3,         //number of layers
                     16,        //number of hidden nodes
@@ -47,7 +46,7 @@ public class AsyncNStepCartpole {
     }
 
 
-    public static void cartPole() {
+    private static void cartPole() {
 
         //record the training data in rl4j-data in a new folder
         DataManager manager = new DataManager(true);
